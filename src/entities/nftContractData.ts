@@ -9,6 +9,8 @@ export function upsertNftContractData(collection: Address) {
   if (nftContractData === null) {
     nftContractData = new NftContractData(nftContractDataId);
     nftContractData.tradeVolume = BIG_INT_ZERO;
+
+    nftContractData.save();
   }
 
   return nftContractData;

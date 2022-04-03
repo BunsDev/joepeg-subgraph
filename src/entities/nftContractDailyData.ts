@@ -1,6 +1,7 @@
 import { Address, BigDecimal, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { NftContractDailyData } from "../../generated/schema";
 import { BIG_INT_ZERO } from "../constants";
+import { upsertNftContractData } from "./nftContractData";
 
 const SECONDS_PER_DAY = 60 * 60 * 24;
 
@@ -17,9 +18,13 @@ export function upsertNftContractDailyData(
 
   if (nftContractDailyData === null) {
     nftContractDailyData = new NftContractDailyData(nftContractDailyDataId);
-    nftContractDailyData.contract = collectionHexString;
     nftContractDailyData.timestamp = BigInt.fromI32(dailyIntervalTimestamp);
     nftContractDailyData.tradeVolume = BIG_INT_ZERO;
+
+    let nftContractData = upsertNftContractData(collection);
+    nftContractDailyData.contract = nftContractData.id;
+
+    nftContractDailyData.save();
   }
 
   return nftContractDailyData;
