@@ -24,12 +24,12 @@ dataSources:
         - name: JoepegExchange
           file: ./abis/JoepegExchange.json
       eventHandlers:
-        - event: CancelAllOrders(address indexed user, uint256 newMinNonce)
+        - event: CancelAllOrders(indexed address,uint256)
           handler: handleCancelAllOrders
-        - event: CancelMultipleOrders(address indexed user, uint256[] orderNonces)
+        - event: CancelMultipleOrders(indexed address,uint256[])
           handler: handleCancelMultipleOrders
-        - event: TakerAsk(bytes32 orderHash, uint256 orderNonce, address indexed taker, address indexed maker, address indexed strategy, address currency, address collection, uint256 tokenId, uint256 amount, uint256 price)
+        - event: TakerAsk(bytes32,uint256,indexed address,indexed address,indexed address,address,address,uint256,uint256,uint256)
           handler: handleTakerAsk
-        - event: TakerBid(bytes32 orderHash, uint256 orderNonce, address indexed taker, address indexed maker, address indexed strategy, address currency, address collection, uint256 tokenId, uint256 amount, uint256 price)
+        - event: TakerBid(bytes32,uint256,indexed address,indexed address,indexed address,address,address,uint256,uint256,uint256)
           handler: handleTakerBid
       file: ./src/mappings/joepegExchange.ts

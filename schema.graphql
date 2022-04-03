@@ -30,7 +30,7 @@ type Sale @entity {
   isOrderAsk: Boolean!
   maker: Bytes!
   nft: Nft!
-  orderHash: Byes!
+  orderHash: Bytes!
   orderNone: BigInt!
   price: BigInt!
   strategy: Bytes!
