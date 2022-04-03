@@ -1,68 +1,58 @@
-type _Schema_
-  @fulltext(
-    name: "nftContractSearch"
-    language: en
-    algorithm: rank
-    include: [
-      {
-        entity: "NftContract"
-        fields: [{ name: "id" }, { name: "name" }, { name: "symbol" }]
-      }
-    ]
-  )
-
 type Nft @entity {
-  # {contractAddress}_{tokenId}
+  # {contractAddress}-{tokenId}
   id: ID!
-  burnedAt: BigInt
-  contract: NftContract!
-  mintedAt: BigInt!
-  transfers: [Transfer!]! @derivedFrom(field: "nft")
-  ownership: [Ownership!]! @derivedFrom(field: "nft")
+  contract: NftContractData!
+  sales: [Sale!]! @derivedFrom(field: "nft")
   tokenID: BigInt!
-  tokenURI: String
 }
 
-type NftContract @entity {
+type NftContractDailyData @entity {
+  # {contractAddress}-{dailyIntervalTimestamp}
+  id: ID!
+  contract: NftContractData!
+  timestamp: BigInt!
+  tradeVolume: BigInt!
+}
+
+type NftContractData @entity {
   # {contractAddress}
   id: ID!
-  name: String
+  dailyDatas: [NftContractDailyData!]! @derivedFrom(field: "contract")
   nfts: [Nft!]! @derivedFrom(field: "contract")
-  numOwners: BigInt!
-  numTokens: BigInt!
-  supportsMetadata: Boolean!
-  symbol: String
-  type: NftType!
+  tradeVolume: BigInt!
 }
 
-type Transfer @entity {
-  # {contractAddress}_{tokenId}_{from}_{to}_{transactionHash}
+type Sale @entity {
+  # {transactionHash}
   id: ID!
-  from: Bytes!
+  amount: BigInt!
+  currency: Bytes!
+  isOrderAsk: Boolean!
+  maker: Bytes!
   nft: Nft!
-  quantity: BigInt!
+  orderHash: Byes!
+  orderNone: BigInt!
+  price: BigInt!
+  strategy: Bytes!
+  taker: Bytes!
   timestamp: BigInt!
-  to: Bytes!
   transactionHash: Bytes!
 }
 
-type Ownership @entity {
-  # {contractAddress}_{tokenId}_{ownerAddress}
+type CanceledMultipleOrders @entity {
+  # {transactionHash}
   id: ID!
-  owner: Bytes!
-  nft: Nft!
-  quantity: BigInt!
+  user: Bytes!
+  orderNonces: [BigInt!]!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
 
-type NftContractOwner @entity {
-  # {contractAddress}_{owner}
+type CanceledAllOrders @entity {
+  # {transactionHash}
   id: ID!
-  owner: Bytes!
-  contract: NftContract!
-  quantity: BigInt!
-}
-
-enum NftType {
-  ERC721
-  ERC1155
+  user: Bytes!
+  newMinNonce: BigInt!
+  timestamp: BigInt!
+  transactionHash: Bytes!
 }
