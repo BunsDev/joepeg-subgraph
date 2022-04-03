@@ -41,6 +41,7 @@ export function upsertSale(
 
     // Update contract trade volume
     let nftContractData = upsertNftContractData(collection);
+    // TODO: Figure out if we expect to support currencies outside of AVAX/WAVAX
     nftContractData.tradeVolume = nftContractData.tradeVolume.plus(price);
     nftContractData.save();
 
@@ -49,6 +50,7 @@ export function upsertSale(
       collection,
       timestamp
     );
+    // TODO: Figure out if we expect to support currencies outside of AVAX/WAVAX
     nftContractDailyData.tradeVolume =
       nftContractDailyData.tradeVolume.plus(price);
     nftContractDailyData.save();
