@@ -1,7 +1,7 @@
 import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { CanceledAllOrders } from "../../generated/schema";
 
-export function getCanceledAllOrders(
+export function upsertCanceledAllOrders(
   newMinNonce: BigInt,
   timestamp: BigInt,
   transactionHash: Bytes,
@@ -16,6 +16,8 @@ export function getCanceledAllOrders(
     canceledAllOrders.timestamp = timestamp;
     canceledAllOrders.transactionHash = transactionHash;
     canceledAllOrders.user = user;
+
+    canceledAllOrders.save();
   }
 
   return canceledAllOrders;

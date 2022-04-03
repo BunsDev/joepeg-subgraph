@@ -6,6 +6,8 @@ import {
 } from "../../generated/JoepegExchange/JoepegExchange";
 import { BIG_INT_ONE } from "../constants";
 import { upsertSale } from "../entities/sale";
+import { upsertCanceledAllOrders } from "../entities/canceledAllOrders";
+import { upsertCanceledMultipleOrders } from "../entities/canceledMultipleOrders";
 
 export function handleTakerAsk(event: TakerAsk): void {
   upsertSale(
@@ -40,5 +42,23 @@ export function handleTakerBid(event: TakerBid): void {
     event.block.timestamp,
     event.params.tokenId,
     event.transaction.hash
+  );
+}
+
+export function handleCancelAllOrders(event: CancelAllOrders): void {
+  upsertCanceledAllOrders(
+    event.params.newMinNonce,
+    event.block.timestamp,
+    event.transaction.hash,
+    event.params.user
+  );
+}
+
+export function handleCancelMultipleOrders(event: CancelMultipleOrders): void {
+  upsertCanceledMultipleOrders(
+    event.params.orderNonces,
+    event.block.timestamp,
+    event.transaction.hash,
+    event.params.user
   );
 }
