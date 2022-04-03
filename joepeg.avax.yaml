@@ -1,0 +1,35 @@
+specVersion: 0.0.2
+description: joepeg
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: JoepegExchange
+    network: avalanche
+    source:
+      abi: JoepegExchange
+      startBlock: 10700000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - CanceledAllOrders
+        - CanceledMultipleOrders
+        - Nft
+        - NftContractDailyData
+        - NftContractData
+        - Sale
+      abis:
+        - name: JoepegExchange
+          file: ./abis/JoepegExchange.json
+      eventHandlers:
+        - event: CancelAllOrders(address indexed user, uint256 newMinNonce)
+          handler: handleCancelAllOrders
+        - event: CancelMultipleOrders(address indexed user, uint256[] orderNonces)
+          handler: handleCancelMultipleOrders
+        - event: TakerAsk(bytes32 orderHash, uint256 orderNonce, address indexed taker, address indexed maker, address indexed strategy, address currency, address collection, uint256 tokenId, uint256 amount, uint256 price)
+          handler: handleTakerAsk
+        - event: TakerBid(bytes32 orderHash, uint256 orderNonce, address indexed taker, address indexed maker, address indexed strategy, address currency, address collection, uint256 tokenId, uint256 amount, uint256 price)
+          handler: handleTakerBid
+      file: ./src/mappings/joepegExchange.ts
