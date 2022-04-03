@@ -18,7 +18,7 @@ export function upsertSale(
   timestamp: BigInt,
   tokenId: BigInt,
   transactionHash: Bytes
-) {
+): Sale {
   let saleId = transactionHash.toHexString();
   let sale = Sale.load(saleId);
 

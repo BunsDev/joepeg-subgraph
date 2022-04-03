@@ -6,7 +6,7 @@ export function upsertCanceledAllOrders(
   timestamp: BigInt,
   transactionHash: Bytes,
   user: Bytes
-) {
+): CanceledAllOrders {
   let canceledAllOrdersId = transactionHash.toHexString();
   let canceledAllOrders = CanceledAllOrders.load(canceledAllOrdersId);
 

@@ -1,8 +1,8 @@
-import { Address, BigDecimal, BigInt, ethereum } from "@graphprotocol/graph-ts";
+import { Bytes } from "@graphprotocol/graph-ts";
 import { NftContractData } from "../../generated/schema";
 import { BIG_INT_ZERO } from "../constants";
 
-export function upsertNftContractData(collection: Address) {
+export function upsertNftContractData(collection: Bytes): NftContractData {
   let nftContractDataId = collection.toHexString();
   let nftContractData = NftContractData.load(nftContractDataId);
 
