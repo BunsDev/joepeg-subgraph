@@ -1,17 +1,12 @@
-import {
-  Address,
-  BigDecimal,
-  BigInt,
-  Bytes,
-  ethereum,
-} from "@graphprotocol/graph-ts";
+import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { Sale } from "../../generated/schema";
+import { upsertNft } from "./nft";
 
-export function getSale(
+export function upsertSale(
   amount: BigInt,
   collection: Bytes,
   currency: Bytes,
-  isOrderAsk: boolean,
+  isTakerAsk: boolean,
   maker: Bytes,
   orderHash: Bytes,
   orderNonce: BigInt,
@@ -22,17 +17,15 @@ export function getSale(
   tokenId: BigInt,
   transactionHash: Bytes
 ) {
-  let collectionHexString = collection.toHexString();
   let saleId = transactionHash.toHexString();
   let sale = Sale.load(saleId);
 
   if (sale === null) {
     sale = new Sale(saleId);
     sale.amount = amount;
-    sale.currency = sale.currency;
-    sale.isOrderAsk = isOrderAsk;
+    sale.currency = currency;
+    sale.isTakerAsk = isTakerAsk;
     sale.maker = maker;
-    sale.nft = collectionHexString + "-" + tokenId.toString();
     sale.orderHash = orderHash;
     sale.orderNonce = orderNonce;
     sale.price = price;
@@ -40,6 +33,11 @@ export function getSale(
     sale.taker = taker;
     sale.timestamp = timestamp;
     sale.transactionHash = transactionHash;
+
+    let nft = upsertNft(collection, tokenId);
+    sale.nft = nft.id;
+
+    sale.save();
   }
 
   return sale;

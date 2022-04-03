@@ -27,7 +27,7 @@ type Sale @entity {
   id: ID!
   amount: BigInt!
   currency: Bytes!
-  isOrderAsk: Boolean!
+  isTakerAsk: Boolean!
   maker: Bytes!
   nft: Nft!
   orderHash: Bytes!

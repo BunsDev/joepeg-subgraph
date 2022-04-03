@@ -5,6 +5,22 @@ import {
   TakerBid,
 } from "../../generated/JoepegExchange/JoepegExchange";
 import { BIG_INT_ONE } from "../constants";
-import { transferBase } from "../entities/nft";
+import { upsertSale } from "../entities/sale";
 
-export function handleTakerAsk(event: TakerAsk): void {}
+export function handleTakerAsk(event: TakerAsk): void {
+  upsertSale(
+    event.params.amount,
+    event.params.collection,
+    event.params.currency,
+    true,
+    event.params.maker,
+    event.params.orderHash,
+    event.params.orderNonce,
+    event.params.price,
+    event.params.strategy,
+    event.params.taker,
+    event.block.timestamp,
+    event.params.tokenId,
+    event.transaction.hash
+  );
+}

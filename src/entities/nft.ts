@@ -1,7 +1,7 @@
 import { Address, BigDecimal, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { Nft } from "../../generated/schema";
 
-export function getNft(collection: Address, tokenId: BigInt) {
+export function upsertNft(collection: Address, tokenId: BigInt) {
   let collectionHexString = collection.toHexString();
   let nftId = collectionHexString + "-" + tokenId.toString();
   let nft = Nft.load(nftId);
@@ -10,6 +10,8 @@ export function getNft(collection: Address, tokenId: BigInt) {
     nft = new Nft(nftId);
     nft.contract = collectionHexString;
     nft.tokenId = tokenId;
+
+    nft.save();
   }
 
   return nft;
