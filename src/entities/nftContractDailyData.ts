@@ -4,7 +4,7 @@ import { BIG_INT_ZERO } from "../constants";
 
 const SECONDS_PER_DAY = 60 * 60 * 24;
 
-export function getNftContractDailyData(
+export function upsertNftContractDailyData(
   collection: Address,
   timestamp: BigInt
 ) {

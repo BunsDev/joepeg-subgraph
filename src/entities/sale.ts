@@ -1,6 +1,8 @@
 import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { Sale } from "../../generated/schema";
 import { upsertNft } from "./nft";
+import { upsertNftContractData } from "./nftContractData";
+import { upsertNftContractDailyData } from "./nftContractDailyData";
 
 export function upsertSale(
   amount: BigInt,
@@ -36,6 +38,20 @@ export function upsertSale(
 
     let nft = upsertNft(collection, tokenId);
     sale.nft = nft.id;
+
+    // Update contract trade volume
+    let nftContractData = upsertNftContractData(collection);
+    nftContractData.tradeVolume = nftContractData.tradeVolume.plus(price);
+    nftContractData.save();
+
+    // Update contract daily trade volume
+    let nftContractDailyData = upsertNftContractDailyData(
+      collection,
+      timestamp
+    );
+    nftContractDailyData.tradeVolume =
+      nftContractDailyData.tradeVolume.plus(price);
+    nftContractDailyData.save();
 
     sale.save();
   }

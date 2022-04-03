@@ -1,5 +1,6 @@
 import { Address, BigDecimal, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { Nft } from "../../generated/schema";
+import { upsertNftContractData } from "./nftContractData";
 
 export function upsertNft(collection: Address, tokenId: BigInt) {
   let collectionHexString = collection.toHexString();
@@ -8,8 +9,10 @@ export function upsertNft(collection: Address, tokenId: BigInt) {
 
   if (nft === null) {
     nft = new Nft(nftId);
-    nft.contract = collectionHexString;
     nft.tokenId = tokenId;
+
+    let nftContractData = upsertNftContractData(collection);
+    nft.contract = nftContractData.id;
 
     nft.save();
   }
