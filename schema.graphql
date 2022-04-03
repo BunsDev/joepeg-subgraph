@@ -3,7 +3,7 @@ type Nft @entity {
   id: ID!
   contract: NftContractData!
   sales: [Sale!]! @derivedFrom(field: "nft")
-  tokenID: BigInt!
+  tokenId: BigInt!
 }
 
 type NftContractDailyData @entity {
@@ -31,7 +31,7 @@ type Sale @entity {
   maker: Bytes!
   nft: Nft!
   orderHash: Bytes!
-  orderNone: BigInt!
+  orderNonce: BigInt!
   price: BigInt!
   strategy: Bytes!
   taker: Bytes!
@@ -42,17 +42,17 @@ type Sale @entity {
 type CanceledMultipleOrders @entity {
   # {transactionHash}
   id: ID!
-  user: Bytes!
   orderNonces: [BigInt!]!
   timestamp: BigInt!
   transactionHash: Bytes!
+  user: Bytes!
 }
 
 type CanceledAllOrders @entity {
   # {transactionHash}
   id: ID!
-  user: Bytes!
   newMinNonce: BigInt!
   timestamp: BigInt!
   transactionHash: Bytes!
+  user: Bytes!
 }
