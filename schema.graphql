@@ -1,0 +1,68 @@
+type _Schema_
+  @fulltext(
+    name: "nftContractSearch"
+    language: en
+    algorithm: rank
+    include: [
+      {
+        entity: "NftContract"
+        fields: [{ name: "id" }, { name: "name" }, { name: "symbol" }]
+      }
+    ]
+  )
+
+type Nft @entity {
+  # {contractAddress}_{tokenId}
+  id: ID!
+  burnedAt: BigInt
+  contract: NftContract!
+  mintedAt: BigInt!
+  transfers: [Transfer!]! @derivedFrom(field: "nft")
+  ownership: [Ownership!]! @derivedFrom(field: "nft")
+  tokenID: BigInt!
+  tokenURI: String
+}
+
+type NftContract @entity {
+  # {contractAddress}
+  id: ID!
+  name: String
+  nfts: [Nft!]! @derivedFrom(field: "contract")
+  numOwners: BigInt!
+  numTokens: BigInt!
+  supportsMetadata: Boolean!
+  symbol: String
+  type: NftType!
+}
+
+type Transfer @entity {
+  # {contractAddress}_{tokenId}_{from}_{to}_{transactionHash}
+  id: ID!
+  from: Bytes!
+  nft: Nft!
+  quantity: BigInt!
+  timestamp: BigInt!
+  to: Bytes!
+  transactionHash: Bytes!
+}
+
+type Ownership @entity {
+  # {contractAddress}_{tokenId}_{ownerAddress}
+  id: ID!
+  owner: Bytes!
+  nft: Nft!
+  quantity: BigInt!
+}
+
+type NftContractOwner @entity {
+  # {contractAddress}_{owner}
+  id: ID!
+  owner: Bytes!
+  contract: NftContract!
+  quantity: BigInt!
+}
+
+enum NftType {
+  ERC721
+  ERC1155
+}
