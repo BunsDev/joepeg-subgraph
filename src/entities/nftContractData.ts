@@ -8,8 +8,6 @@ export function upsertNftContractData(collection: Bytes): NftContractData {
 
   if (nftContractData === null) {
     nftContractData = new NftContractData(nftContractDataId);
-    nftContractData.tradeVolume = BIG_INT_ZERO;
-
     nftContractData.save();
   }
 
