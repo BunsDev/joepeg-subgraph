@@ -11,7 +11,7 @@ type NftContractDailyData @entity {
   id: ID!
   contract: NftContractData!
   timestamp: BigInt!
-  tradeVolume: BigInt!
+  tradeVolumes: [DailyTradeVolume!]! @derivedFrom(field: "nftContractDailyData")
 }
 
 type NftContractData @entity {
@@ -19,7 +19,23 @@ type NftContractData @entity {
   id: ID!
   dailyDatas: [NftContractDailyData!]! @derivedFrom(field: "contract")
   nfts: [Nft!]! @derivedFrom(field: "contract")
-  tradeVolume: BigInt!
+  tradeVolumes: [TradeVolume!]! @derivedFrom(field: "nftContractData")
+}
+
+type DailyTradeVolume @entity {
+  # {nftContractDailyData}-{currency}
+  id: ID!
+  currency: Bytes!
+  nftContractDailyData: NftContractDailyData!
+  volume: BigInt!
+}
+
+type TradeVolume @entity {
+  # {nftContractData}-{currency}
+  id: ID!
+  currency: Bytes!
+  nftContractData: NftContractData!
+  volume: BigInt!
 }
 
 type Sale @entity {

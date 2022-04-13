@@ -3,6 +3,8 @@ import { Sale } from "../../generated/schema";
 import { upsertNft } from "./nft";
 import { upsertNftContractData } from "./nftContractData";
 import { upsertNftContractDailyData } from "./nftContractDailyData";
+import { upsertDailyTradeVolume } from "./dailyTradeVolume";
+import { upsertTradeVolume } from "./tradeVolume";
 
 export function upsertSale(
   amount: BigInt,
@@ -41,19 +43,14 @@ export function upsertSale(
 
     // Update contract trade volume
     let nftContractData = upsertNftContractData(collection);
-    // TODO: Figure out if we expect to support currencies outside of AVAX/WAVAX
-    nftContractData.tradeVolume = nftContractData.tradeVolume.plus(price);
-    nftContractData.save();
+    upsertTradeVolume(nftContractData.id, currency, price);
 
     // Update contract daily trade volume
     let nftContractDailyData = upsertNftContractDailyData(
       collection,
       timestamp
     );
-    // TODO: Figure out if we expect to support currencies outside of AVAX/WAVAX
-    nftContractDailyData.tradeVolume =
-      nftContractDailyData.tradeVolume.plus(price);
-    nftContractDailyData.save();
+    upsertDailyTradeVolume(nftContractDailyData.id, currency, price);
 
     sale.save();
   }

@@ -19,7 +19,6 @@ export function upsertNftContractDailyData(
   if (nftContractDailyData === null) {
     nftContractDailyData = new NftContractDailyData(nftContractDailyDataId);
     nftContractDailyData.timestamp = BigInt.fromI32(dailyIntervalTimestamp);
-    nftContractDailyData.tradeVolume = BIG_INT_ZERO;
 
     let nftContractData = upsertNftContractData(collection);
     nftContractDailyData.contract = nftContractData.id;
