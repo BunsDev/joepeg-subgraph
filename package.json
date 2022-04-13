@@ -10,11 +10,11 @@
     "codegen:fuji": "graph codegen joepeg.fuji.yaml",
     "build:avax": "graph build joepeg.avax.yaml",
     "build:fuji": "graph build joepeg.fuji.yaml",
-    "deploy:avax": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ traderjoe-xyz/nft-contracts joepeg.avax.yaml",
-    "deploy:fuji": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ traderjoe-xyz/nft-contract-fuji joepeg.fuji.yaml",
-    "create-local": "graph create --node http://localhost:8020/ traderjoe-xyz/nft-contracts joepeg.avax.yaml",
-    "remove-local": "graph remove --node http://localhost:8020/ traderjoe-xyz/nft-contracts",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 traderjoe-xyz/nft-contracts joepeg.avax.yaml"
+    "deploy:avax": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ traderjoe-xyz/marketplace joepeg.avax.yaml",
+    "deploy:fuji": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ traderjoe-xyz/marketplace-fuji joepeg.fuji.yaml",
+    "create-local": "graph create --node http://localhost:8020/ traderjoe-xyz/marketplace joepeg.avax.yaml",
+    "remove-local": "graph remove --node http://localhost:8020/ traderjoe-xyz/marketplace",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 traderjoe-xyz/marketplace joepeg.avax.yaml"
   },
   "devDependencies": {
     "@graphprotocol/graph-ts": "^0.26.0",
