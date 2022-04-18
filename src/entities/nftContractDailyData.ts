@@ -7,7 +7,9 @@ const SECONDS_PER_DAY = 60 * 60 * 24;
 
 export function upsertNftContractDailyData(
   collection: Bytes,
-  timestamp: BigInt
+  timestamp: BigInt,
+  currency: Bytes,
+  price: BigInt
 ): NftContractDailyData {
   let collectionHexString = collection.toHexString();
   let dailyIntervalTimestamp =
@@ -19,12 +21,16 @@ export function upsertNftContractDailyData(
   if (nftContractDailyData === null) {
     nftContractDailyData = new NftContractDailyData(nftContractDailyDataId);
     nftContractDailyData.timestamp = BigInt.fromI32(dailyIntervalTimestamp);
+    nftContractDailyData.volume = BIG_INT_ZERO;
 
     let nftContractData = upsertNftContractData(collection);
     nftContractDailyData.contract = nftContractData.id;
 
     nftContractDailyData.save();
   }
+  // TODO: standardise price in AVAX, assume currency is always AVAX for now
+  nftContractDailyData.volume = nftContractDailyData.volume.plus(price);
+  nftContractDailyData.save();
 
   return nftContractDailyData;
 }
