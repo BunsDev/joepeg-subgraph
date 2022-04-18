@@ -48,7 +48,9 @@ export function upsertSale(
     // Update contract daily trade volume
     let nftContractDailyData = upsertNftContractDailyData(
       collection,
-      timestamp
+      timestamp,
+      currency,
+      price
     );
     upsertDailyTradeVolume(nftContractDailyData.id, currency, price);
 
