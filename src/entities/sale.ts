@@ -39,7 +39,7 @@ export function upsertSale(
     sale.transactionHash = transactionHash;
 
     let nftContractData = upsertNftContractData(collection, currency, price);
-    let nft = upsertNft(collection, tokenId);
+    let nft = upsertNft(nftContractData.id, tokenId);
     sale.nft = nft.id;
 
     // Update contract trade volume
@@ -47,7 +47,7 @@ export function upsertSale(
 
     // Update contract daily trade volume
     let nftContractDailyData = upsertNftContractDailyData(
-      collection,
+      nftContractData.id,
       timestamp,
       currency,
       price

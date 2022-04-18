@@ -2,14 +2,14 @@ import { Bytes, BigInt } from "@graphprotocol/graph-ts";
 import { Nft, NftContractData } from "../../generated/schema";
 import { upsertNftContractData } from "./nftContractData";
 
-export function upsertNft(nftContractData: NftContractData, tokenId: BigInt): Nft {
-  let nftId = nftContractData.id + "-" + tokenId.toString();
+export function upsertNft(nftContractDataId: string, tokenId: BigInt): Nft {
+  let nftId = nftContractDataId + "-" + tokenId.toString();
   let nft = Nft.load(nftId);
 
   if (nft === null) {
     nft = new Nft(nftId);
     nft.tokenId = tokenId;
-    nft.contract = nftContractData.id;
+    nft.contract = nftContractDataId;
     nft.save();
   }
 
