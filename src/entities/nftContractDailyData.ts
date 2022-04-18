@@ -21,15 +21,13 @@ export function upsertNftContractDailyData(
   if (nftContractDailyData === null) {
     nftContractDailyData = new NftContractDailyData(nftContractDailyDataId);
     nftContractDailyData.timestamp = BigInt.fromI32(dailyIntervalTimestamp);
-    nftContractDailyData.volume = BIG_INT_ZERO;
+    nftContractDailyData.volumeAVAX = BIG_INT_ZERO;
 
     let nftContractData = upsertNftContractData(collection);
     nftContractDailyData.contract = nftContractData.id;
-
-    nftContractDailyData.save();
   }
-  // TODO: standardise price in AVAX, assume currency is always AVAX for now
-  nftContractDailyData.volume = nftContractDailyData.volume.plus(price);
+  // TODO: assume currency is always AVAX for now
+  nftContractDailyData.volumeAVAX = nftContractDailyData.volumeAVAX.plus(price);
   nftContractDailyData.save();
 
   return nftContractDailyData;

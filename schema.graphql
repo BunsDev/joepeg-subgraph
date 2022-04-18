@@ -11,13 +11,14 @@ type NftContractDailyData @entity {
   id: ID!
   contract: NftContractData!
   timestamp: BigInt!
-  volume: BigInt! # (in AVAX)
+  volumeAVAX: BigInt!
   tradeVolumes: [DailyTradeVolume!]! @derivedFrom(field: "nftContractDailyData")
 }
 
 type NftContractData @entity {
   # {contractAddress}
   id: ID!
+  volumeAVAX: BigInt!
   dailyDatas: [NftContractDailyData!]! @derivedFrom(field: "contract")
   nfts: [Nft!]! @derivedFrom(field: "contract")
   tradeVolumes: [TradeVolume!]! @derivedFrom(field: "nftContractData")
