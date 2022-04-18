@@ -1,7 +1,6 @@
 import { Bytes, BigInt } from "@graphprotocol/graph-ts";
 import { NftContractDailyData } from "../../generated/schema";
 import { BIG_INT_ZERO } from "../constants";
-import { upsertNftContractData } from "./nftContractData";
 
 const SECONDS_PER_DAY = 60 * 60 * 24;
 

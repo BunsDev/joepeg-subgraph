@@ -1,6 +1,5 @@
 import { Bytes, BigInt } from "@graphprotocol/graph-ts";
-import { Nft, NftContractData } from "../../generated/schema";
-import { upsertNftContractData } from "./nftContractData";
+import { Nft } from "../../generated/schema";
 
 export function upsertNft(nftContractDataId: string, tokenId: BigInt): Nft {
   let nftId = nftContractDataId + "-" + tokenId.toString();
