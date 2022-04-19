@@ -1,6 +1,6 @@
 import { Bytes, BigInt } from "@graphprotocol/graph-ts";
 import { NftContractData } from "../../generated/schema";
-import { BIG_INT_ZERO } from "../constants";
+import { BIG_INT_ZERO, WAVAX_ADDRESSES } from "../constants";
 
 export function upsertNftContractData(
   collection: Bytes, 
@@ -15,7 +15,7 @@ export function upsertNftContractData(
     nftContractData.volumeAVAX = BIG_INT_ZERO;
   }
   // TODO: assume currency is always AVAX for now
-  if (currency.toString() === 'WAVAX') {
+  if (WAVAX_ADDRESSES.has(currency.toHexString())) {
     nftContractData.volumeAVAX = nftContractData.volumeAVAX.plus(price);
   }
   nftContractData.save();
