@@ -22,7 +22,7 @@ export function upsertNftContractDailyData(
     nftContractDailyData.volumeAVAX = BIG_INT_ZERO;
     nftContractDailyData.contract = nftContractDataId;
   }
-  // TODO: assume currency is always AVAX for now
+  // TODO: handle other currencies
   if (WAVAX_ADDRESSES.has(currency.toHexString())) {
     nftContractDailyData.volumeAVAX = nftContractDailyData.volumeAVAX.plus(price);
   }

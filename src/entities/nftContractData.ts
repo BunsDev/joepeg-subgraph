@@ -14,7 +14,7 @@ export function upsertNftContractData(
     nftContractData = new NftContractData(nftContractDataId);
     nftContractData.volumeAVAX = BIG_INT_ZERO;
   }
-  // TODO: assume currency is always AVAX for now
+  // TODO: handle other currencies
   if (WAVAX_ADDRESSES.has(currency.toHexString())) {
     nftContractData.volumeAVAX = nftContractData.volumeAVAX.plus(price);
   }
