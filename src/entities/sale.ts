@@ -38,17 +38,19 @@ export function upsertSale(
     sale.timestamp = timestamp;
     sale.transactionHash = transactionHash;
 
-    let nft = upsertNft(collection, tokenId);
+    let nftContractData = upsertNftContractData(collection, currency, price);
+    let nft = upsertNft(nftContractData.id, tokenId);
     sale.nft = nft.id;
 
     // Update contract trade volume
-    let nftContractData = upsertNftContractData(collection);
     upsertTradeVolume(nftContractData.id, currency, price);
 
     // Update contract daily trade volume
     let nftContractDailyData = upsertNftContractDailyData(
-      collection,
-      timestamp
+      nftContractData.id,
+      timestamp,
+      currency,
+      price
     );
     upsertDailyTradeVolume(nftContractDailyData.id, currency, price);
 
