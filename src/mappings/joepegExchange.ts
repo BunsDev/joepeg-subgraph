@@ -6,8 +6,8 @@ import {
 } from "../../generated/JoepegExchange/JoepegExchange";
 import { BIG_INT_ONE } from "../constants";
 import { upsertSale } from "../entities/sale";
-import { upsertCanceledAllOrders } from "../entities/canceledAllOrders";
-import { upsertCanceledMultipleOrders } from "../entities/canceledMultipleOrders";
+import { upsertCanceledAllOrders } from "../entities/cancelledAllOrder";
+import { upsertCanceledMultipleOrders } from "../entities/cancelledMultipleOrder";
 
 export function handleTakerAsk(event: TakerAsk): void {
   upsertSale(

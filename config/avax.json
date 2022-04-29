@@ -1,4 +1,5 @@
 {
   "network": "avalanche",
-  "startBlock": "10700000"
+  "startBlock": "10700000",
+  "exchangeAddress": ""
 }

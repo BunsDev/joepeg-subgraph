@@ -1,4 +1,5 @@
 {
   "network": "fuji",
-  "startBlock": "8995277"
+  "startBlock": "8995277",
+  "exchangeAddress": "0x04e290BE5163Ad5c92109Eb4733C45A2dF110d44"
 }
