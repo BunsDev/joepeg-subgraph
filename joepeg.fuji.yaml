@@ -7,6 +7,7 @@ dataSources:
     name: JoepegExchange
     network: fuji
     source:
+      address: "0x04e290BE5163Ad5c92109Eb4733C45A2dF110d44"
       abi: JoepegExchange
       startBlock: 8995277
     mapping:
@@ -14,8 +15,8 @@ dataSources:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - CanceledAllOrders
-        - CanceledMultipleOrders
+        - CancelledAllOrder
+        - CancelledMultipleOrder
         - Nft
         - NftContractDailyData
         - NftContractData

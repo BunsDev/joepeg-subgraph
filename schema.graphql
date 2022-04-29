@@ -58,7 +58,7 @@ type Sale @entity {
   transactionHash: Bytes!
 }
 
-type CanceledMultipleOrders @entity {
+type CancelledMultipleOrder @entity {
   # {transactionHash}
   id: ID!
   orderNonces: [BigInt!]!
@@ -67,7 +67,7 @@ type CanceledMultipleOrders @entity {
   user: Bytes!
 }
 
-type CanceledAllOrders @entity {
+type CancelledAllOrder @entity {
   # {transactionHash}
   id: ID!
   newMinNonce: BigInt!
