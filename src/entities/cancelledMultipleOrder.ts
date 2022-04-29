@@ -1,7 +1,7 @@
 import { BigInt, Bytes } from "@graphprotocol/graph-ts";
 import { CancelledMultipleOrder } from "../../generated/schema";
 
-export function upsertCanceledMultipleOrders(
+export function upsertCancelledMultipleOrder(
   orderNonces: BigInt[],
   timestamp: BigInt,
   transactionHash: Bytes,
