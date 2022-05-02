@@ -7,9 +7,9 @@ dataSources:
     name: JoepegExchange
     network: avalanche
     source:
-      address: ""
+      address: "0xaE079eDA901F7727D0715aff8f82BA8295719977"
       abi: JoepegExchange
-      startBlock: 10700000
+      startBlock: 14032744
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
