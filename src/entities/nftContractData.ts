@@ -1,10 +1,14 @@
 import { Bytes, BigInt } from "@graphprotocol/graph-ts";
 import { NftContractData } from "../../generated/schema";
-import { BIG_INT_ZERO, WAVAX_ADDRESSES } from "../constants";
+import {
+  BIG_INT_ZERO,
+  WAVAX_ADDRESS_FUJI,
+  WAVAX_ADDRESS_MAINNET,
+} from "../constants";
 
 export function upsertNftContractData(
-  collection: Bytes, 
-  currency: Bytes, 
+  collection: Bytes,
+  currency: Bytes,
   price: BigInt
 ): NftContractData {
   let nftContractDataId = collection.toHexString();
@@ -15,7 +19,11 @@ export function upsertNftContractData(
     nftContractData.volumeAVAX = BIG_INT_ZERO;
   }
   // TODO: handle other currencies
-  if (WAVAX_ADDRESSES.has(currency.toHexString())) {
+  let currencyHexString = currency.toHexString();
+  if (
+    currencyHexString == WAVAX_ADDRESS_FUJI ||
+    currencyHexString == WAVAX_ADDRESS_MAINNET
+  ) {
     nftContractData.volumeAVAX = nftContractData.volumeAVAX.plus(price);
   }
   nftContractData.save();
