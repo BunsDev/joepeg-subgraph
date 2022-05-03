@@ -27,11 +27,7 @@ export function upsertNftContractDailyData(
     nftContractDailyData.contract = nftContractDataId;
   }
   // TODO: handle other currencies
-  let currencyHexString = currency.toHexString();
-  if (
-    currencyHexString == WAVAX_ADDRESS_FUJI ||
-    currencyHexString == WAVAX_ADDRESS_MAINNET
-  ) {
+  if (currency == WAVAX_ADDRESS_FUJI || currency == WAVAX_ADDRESS_MAINNET) {
     nftContractDailyData.volumeAVAX =
       nftContractDailyData.volumeAVAX.plus(price);
   }
