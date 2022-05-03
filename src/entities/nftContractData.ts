@@ -5,7 +5,6 @@ import {
   WAVAX_ADDRESS_FUJI,
   WAVAX_ADDRESS_MAINNET,
 } from "../constants";
-import { log } from "@graphprotocol/graph-ts";
 
 export function upsertNftContractData(
   collection: Bytes,
