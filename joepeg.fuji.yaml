@@ -9,7 +9,7 @@ dataSources:
     source:
       address: "0x04e290BE5163Ad5c92109Eb4733C45A2dF110d44"
       abi: JoepegExchange
-      startBlock: 8995277
+      startBlock: 9034052
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

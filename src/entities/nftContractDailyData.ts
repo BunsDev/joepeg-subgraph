@@ -1,6 +1,10 @@
 import { Bytes, BigInt } from "@graphprotocol/graph-ts";
 import { NftContractDailyData } from "../../generated/schema";
-import { BIG_INT_ZERO, WAVAX_ADDRESSES } from "../constants";
+import {
+  BIG_INT_ZERO,
+  WAVAX_ADDRESS_FUJI,
+  WAVAX_ADDRESS_MAINNET,
+} from "../constants";
 
 const SECONDS_PER_DAY = 60 * 60 * 24;
 
@@ -23,8 +27,9 @@ export function upsertNftContractDailyData(
     nftContractDailyData.contract = nftContractDataId;
   }
   // TODO: handle other currencies
-  if (WAVAX_ADDRESSES.has(currency.toHexString())) {
-    nftContractDailyData.volumeAVAX = nftContractDailyData.volumeAVAX.plus(price);
+  if (currency == WAVAX_ADDRESS_FUJI || currency == WAVAX_ADDRESS_MAINNET) {
+    nftContractDailyData.volumeAVAX =
+      nftContractDailyData.volumeAVAX.plus(price);
   }
   nftContractDailyData.save();
 
